@@ -1,3 +1,10 @@
+package Manager;
+
+import Model.Epic;
+import Model.Status;
+import Model.Subtask;
+import Model.Task;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -24,6 +31,7 @@ public class TaskManager {
         subtask.setId(id);
         subtasks.put(id, subtask);
         epics.get(subtask.getParentEpicId()).addSubtaskInEpic(subtask);
+        updateEpicStatus(subtask.getParentEpicId());
     }
 
     public void removeAllTasks() {
@@ -32,6 +40,9 @@ public class TaskManager {
 
     public void removeAllSubtasks() {
         subtasks.clear();
+        for (Epic epic : epics.values()) {
+            epic.removeAllSubtasks();
+        }
     }
 
     public void removeAllEpics() {
@@ -78,6 +89,7 @@ public class TaskManager {
     public void removeSubtaskByID(int id) {
         epics.get(subtasks.get(id).getParentEpicId()).removeSubtask(subtasks.get(id));
         subtasks.remove(id);
+        updateEpicStatus(subtasks.get(id).getParentEpicId());
     }
 
     public void updateTask(Task newTask) {
