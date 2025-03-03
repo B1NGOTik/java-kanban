@@ -18,12 +18,12 @@ public class InMemoryTaskManagerTest {
         taskManager.addSubtask(new Subtask("Подзадача2", "Описание подзадачи2", Status.NEW, 3));
         taskManager.addSubtask(new Subtask("Подзадача3", "Описание подзадачи3", Status.NEW, 4));
 
-        assertEquals(taskManager.getTaskByID(2).getDescription(), "Описание задачи2");
+        assertEquals(taskManager.getTaskById(2).getDescription(), "Описание задачи2");
 
-        assertEquals(taskManager.getEpicByID(4).getDescription(), "Описание эпика2");
+        assertEquals(taskManager.getEpicById(4).getDescription(), "Описание эпика2");
 
-        assertEquals(taskManager.getSubtaskByID(5).getDescription(), "Описание подзадачи1");
+        assertEquals(taskManager.getSubtaskById(5).getDescription(), "Описание подзадачи1");
 
-        assertEquals(taskManager.getSubtaskByID(7).getDescription(), "Описание подзадачи3");
+        assertEquals(taskManager.getSubtaskById(7).getDescription(), "Описание подзадачи3");
     }
 }

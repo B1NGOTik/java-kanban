@@ -20,14 +20,14 @@ public interface TaskManager {
     ArrayList<Subtask> getAllSubtasks();
     ArrayList<Epic> getAllEpics();
 
-    Task getTaskByID(int id);
-    Epic getEpicByID(int id);
-    Subtask getSubtaskByID(int id);
+    Task getTaskById(int id);
+    Epic getEpicById(int id);
+    Subtask getSubtaskById(int id);
     ArrayList<Subtask> getEpicSubtasks(int epicId);
 
-    void removeTaskByID(int id);
-    void removeEpicByID(int id);
-    void removeSubtaskByID(int id);
+    void removeTaskById(int id);
+    void removeEpicById(int id);
+    void removeSubtaskById(int id);
 
     void updateTask(Task newTask);
     void updateEpic(Epic newEpic);

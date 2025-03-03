@@ -20,7 +20,7 @@ public class InMemoryHistoryManagerTest {
 
         List<Task> tasks = taskManager.getAllTasks();
         for (Task task : tasks) {
-            taskManager.getTaskByID(task.getId());
+            taskManager.getTaskById(task.getId());
         }
 
         List<Task> list = taskManager.getHistory();
@@ -31,7 +31,7 @@ public class InMemoryHistoryManagerTest {
     public void getHistoryShouldReturnOldTaskAfterUpdate() {
         Task task1 = new Task("Переехать", "Переехать на новую квартиру", Status.NEW);
         taskManager.addTask(task1);
-        taskManager.getTaskByID(task1.getId());
+        taskManager.getTaskById(task1.getId());
         taskManager.updateTask(new Task("Накормить кошку", "Найти, погладить и покормить кошку", Status.NEW, task1.getId()));
         List<Task> tasks = taskManager.getHistory();
         Task oldTask = tasks.getFirst();
@@ -44,7 +44,7 @@ public class InMemoryHistoryManagerTest {
     public void getHistoryShouldReturnOldEpicAfterUpdate() {
         Epic epic1 = new Epic("Сделать проект", "Шаги по сдаче проекта", Status.NEW);
         taskManager.addEpic(epic1);
-        taskManager.getEpicByID(epic1.getId());
+        taskManager.getEpicById(epic1.getId());
         taskManager.updateEpic(new Epic("Новое имя", "Новое описание", Status.NEW, epic1.getId()));
         List<Task> epics = taskManager.getHistory();
         Epic oldEpic = (Epic) epics.getFirst();
@@ -59,7 +59,7 @@ public class InMemoryHistoryManagerTest {
         Subtask subtask1 = new Subtask("Собрать документы", "Собрать требуемые документы", Status.NEW,
                 epic1.getId());
         taskManager.addSubtask(subtask1);
-        taskManager.getSubtaskByID(subtask1.getId());
+        taskManager.getSubtaskById(subtask1.getId());
         taskManager.updateSubtask(new Subtask("Новое имя", "Новое описание",
                 Status.NEW, epic1.getId(), subtask1.getId()));
         List<Task> subtasks = taskManager.getHistory();
