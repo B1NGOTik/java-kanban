@@ -26,16 +26,13 @@ public class InMemoryHistoryManager implements HistoryManager {
     public void linkLast(Node newNode) {
         if (firstNode == null) {
             firstNode = newNode;
-            lastNode = newNode;
-            nodesById.put(newNode.task.getId(), newNode);
         } else {
             lastNode.next = newNode;
             newNode.prev = lastNode;
-            //nodesById.remove(lastNode.task.getId());
-            //nodesById.put(lastNode.task.getId(), lastNode);
-            lastNode = newNode;
-            nodesById.put(newNode.task.getId(), newNode);
+
         }
+        lastNode = newNode;
+        nodesById.put(newNode.task.getId(), newNode);
     }
 
     public void removeNode(Node node) {
