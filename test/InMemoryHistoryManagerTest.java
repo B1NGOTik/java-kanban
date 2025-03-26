@@ -7,25 +7,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class InMemoryHistoryManagerTest {
     InMemoryTaskManager taskManager = new InMemoryTaskManager();
-
-    @Test
-    public void getHistoryShouldReturnListOf10Tasks() {
-        for (int i = 0; i < 11; i++) {
-            taskManager.addTask(new Task("Название", "Описание", Status.NEW));
-        }
-
-        List<Task> tasks = taskManager.getAllTasks();
-        for (Task task : tasks) {
-            taskManager.getTaskById(task.getId());
-        }
-
-        List<Task> list = taskManager.getHistory();
-        assertEquals(10, list.size());
-    }
 
     @Test
     public void getHistoryShouldReturnOldTaskAfterUpdate() {
@@ -66,5 +53,41 @@ public class InMemoryHistoryManagerTest {
         Subtask oldSubtask = (Subtask) subtasks.getFirst();
         assertEquals(subtask1.getName(), oldSubtask.getName());
         assertEquals(subtask1.getDescription(), oldSubtask.getDescription());
+    }
+
+    @Test
+    public void getHistoryShouldntReturnRepeatedOldTasks() {
+        Task task1 = new Task("Сдача проекта", "Сдать проект в Яндекс.Практикуме", Status.NEW);
+        taskManager.addTask(task1);
+        Task task2 = new Task("Приготовить ужин", "Приготовить на ужин лазанью", Status.NEW);
+        taskManager.addTask(task2);
+        Task task3 = new Task("Искупать обезьянку", "Искупать обезьянку Мари", Status.NEW);
+        taskManager.addTask(task3);
+        taskManager.getTaskById(1);
+        taskManager.getTaskById(3);
+        taskManager.getTaskById(2);
+        taskManager.getTaskById(1);
+        taskManager.getTaskById(3);
+        List<Task> history = taskManager.getHistory();
+        List<Task> expectedHistory = new ArrayList<>(Arrays.asList(task2, task1, task3));
+        assertEquals(history, expectedHistory);
+    }
+
+    @Test
+    public void getHistoryShouldntReturnDeletedTasks() {
+        Task task1 = new Task("Name1", "Description1", Status.NEW);
+        taskManager.addTask(task1);
+        Task task2 = new Task("Name2", "Description2", Status.NEW);
+        taskManager.addTask(task2);
+        Task task3 = new Task("Name3", "Description3", Status.NEW);
+        taskManager.addTask(task3);
+        taskManager.getTaskById(1);
+        taskManager.getTaskById(2);
+        taskManager.getTaskById(3);
+        taskManager.removeTaskFromHistory(2);
+        taskManager.removeTaskFromHistory(1);
+        List<Task> history = taskManager.getHistory();
+        List<Task> expectedHistory = new ArrayList<>(Arrays.asList(task3));
+        assertEquals(history, expectedHistory);
     }
 }
