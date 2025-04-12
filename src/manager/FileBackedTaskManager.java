@@ -65,10 +65,10 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
                 Task task = fromString(lines[i]);
                 switch (task.getType()) {
                     case TASK:
-                        manager.tasks.put(task.getId(),task);
+                        manager.tasks.put(task.getId(), task);
                         break;
                     case EPIC:
-                        manager.epics.put(task.getId(),(Epic) task);
+                        manager.epics.put(task.getId(), (Epic) task);
                         break;
                     case SUBTASK:
                         manager.subtasks.put(task.getId(), (Subtask) task);
@@ -90,14 +90,14 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
         Status status = Status.valueOf(parts[3]);
         String description = parts[4];
 
-        switch(type) {
+        switch (type) {
             case TASK:
-                return new Task(name,description,status,id);
+                return new Task(name, description, status, id);
             case EPIC:
                 return new Epic(name, description, status, id);
             case SUBTASK:
                 int epicId = Integer.parseInt(parts[5]);
-                return new Subtask(name, description,status,id,epicId);
+                return new Subtask(name, description, status, id, epicId);
             default:
                 return null;
         }

@@ -1,7 +1,11 @@
 package main;
+
 import manager.*;
+
 import java.io.File;
+
 import model.*;
+
 import java.io.IOException;
 
 
@@ -49,10 +53,10 @@ public class Main {
             Task task1 = new Task("Task 1", "Description 1", Status.NEW);
             manager.addTask(task1);
 
-            Epic epic1 = new Epic("Epic 1", "Description epic",Status.NEW);
+            Epic epic1 = new Epic("Epic 1", "Description epic", Status.NEW);
             manager.addEpic(epic1);
 
-            Subtask subtask1 = new Subtask("Subtask 1", "Description subtask",Status.NEW, epic1.getId());
+            Subtask subtask1 = new Subtask("Subtask 1", "Description subtask", Status.NEW, epic1.getId());
             manager.addSubtask(subtask1);
 
             // Создаем новый менеджер из файла
