@@ -16,4 +16,9 @@ public class Subtask extends Task {
     public Integer getParentEpicId() {
         return parentEpicId;
     }
+
+    @Override
+    public TaskType getType() {
+        return TaskType.SUBTASK;
+    }
 }
