@@ -17,20 +17,20 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
 
     private void save() {
         try {
-            StringBuilder sb = new StringBuilder();
-            sb.append("id,type,name,status,description,epic\n");
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("id,type,name,status,description,epic\n");
 
             for (Epic epic : getAllEpics()) {
-                sb.append(toString(epic)).append("\n");
+                stringBuilder.append(toString(epic)).append("\n");
             }
             for (Subtask subtask : getAllSubtasks()) {
-                sb.append(toString(subtask)).append("\n");
+                stringBuilder.append(toString(subtask)).append("\n");
             }
             for (Task task : getAllTasks()) {
-                sb.append(toString(task)).append("\n");
+                stringBuilder.append(toString(task)).append("\n");
             }
 
-            Files.writeString(saveFile.toPath(), sb.toString());
+            Files.writeString(saveFile.toPath(), stringBuilder.toString());
         } catch (IOException e) {
             throw new ManagerSaveException("Ошибка при сохранении в файл");
         }
