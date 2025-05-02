@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,12 +45,12 @@ public class InMemoryHistoryManagerTest {
     public void getHistoryShouldReturnOldSubtaskAfterUpdate() {
         Epic epic1 = new Epic("Поступление в университет", "Шаги при поступлении в университет", Status.NEW);
         taskManager.addEpic(epic1);
-        Subtask subtask1 = new Subtask("Собрать документы", "Собрать требуемые документы", Status.NEW,
+        Subtask subtask1 = new Subtask("Собрать документы", "Собрать требуемые документы", Status.NEW, LocalDateTime.now().plusMinutes(40), Duration.ofMinutes(10),
                 epic1.getId());
         taskManager.addSubtask(subtask1);
         taskManager.getSubtaskById(subtask1.getId());
         taskManager.updateSubtask(new Subtask("Новое имя", "Новое описание",
-                Status.NEW, epic1.getId(), subtask1.getId()));
+                Status.NEW, epic1.getId(), LocalDateTime.now().plusMinutes(60), Duration.ofMinutes(10), subtask1.getId()));
         List<Task> subtasks = taskManager.getHistory();
         Subtask oldSubtask = (Subtask) subtasks.getFirst();
         assertEquals(subtask1.getName(), oldSubtask.getName());
