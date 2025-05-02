@@ -173,13 +173,7 @@ public class InMemoryTaskManager implements TaskManager {
         long doneStatusCounter = epics.get(id).getSubtasks().stream()
                 .filter(subtask -> subtask.getStatus() == Status.NEW)
                 .count();
-        /*for (Subtask subtask : epics.get(id).getSubtasks()) {
-            if (subtask.getStatus() == Status.DONE) {
-                doneStatusCounter++;
-            } else if (subtask.getStatus() == Status.NEW) {
-                newStatusCounter++;
-            }
-        }*/
+
         if (doneStatusCounter == epics.get(id).getSubtasks().size()) {
             epics.get(id).setStatus(Status.DONE);
         } else if (newStatusCounter == epics.get(id).getSubtasks().size()) {

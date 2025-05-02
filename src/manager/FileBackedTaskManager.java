@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
-import java.util.TreeSet;
 
 import exception.ManagerSaveException;
 
@@ -24,16 +22,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
         try {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("id,type,name,status,description,start,duration,end,epic\n");
-
-            /*for (Epic epic : getAllEpics()) {
-                stringBuilder.append(toString(epic)).append("\n");
-            }
-            for (Subtask subtask : getAllSubtasks()) {
-                stringBuilder.append(toString(subtask)).append("\n");
-            }
-            for (Task task : getAllTasks()) {
-                stringBuilder.append(toString(task)).append("\n");
-            }*/
 
             for (int i = 1; i < idMaker; i++) {
                 if (epics.containsKey(i)) {
@@ -85,15 +73,12 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
                 Task task = fromString(lines[i]);
                 switch (task.getType()) {
                     case TASK:
-                        //manager.tasks.put(task.getId(), task);
                         manager.addTask(task);
                         break;
                     case EPIC:
-                        //manager.epics.put(task.getId(), (Epic) task);
                         manager.addEpic((Epic) task);
                         break;
                     case SUBTASK:
-                        //manager.subtasks.put(task.getId(), (Subtask) task);
                         manager.addSubtask((Subtask) task);
                         break;
                 }

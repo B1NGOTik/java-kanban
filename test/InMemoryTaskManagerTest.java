@@ -18,8 +18,8 @@ public class InMemoryTaskManagerTest extends TaskManagerTest {
         taskManager.addEpic(new Epic("Эпик1", "Описание эпика1", Status.NEW));
         taskManager.addEpic(new Epic("Эпик2", "Описание эпика2", Status.NEW));
         taskManager.addSubtask(new Subtask("Подзадача1", "Описание подзадачи1", Status.NEW, LocalDateTime.now().plusMinutes(40), Duration.ofMinutes(10), 3));
-        taskManager.addSubtask(new Subtask("Подзадача2", "Описание подзадачи2", Status.NEW, LocalDateTime.now().plusMinutes(60), Duration.ofMinutes(10),3));
-        taskManager.addSubtask(new Subtask("Подзадача3", "Описание подзадачи3", Status.NEW, LocalDateTime.now().plusMinutes(80), Duration.ofMinutes(10),4));
+        taskManager.addSubtask(new Subtask("Подзадача2", "Описание подзадачи2", Status.NEW, LocalDateTime.now().plusMinutes(60), Duration.ofMinutes(10), 3));
+        taskManager.addSubtask(new Subtask("Подзадача3", "Описание подзадачи3", Status.NEW, LocalDateTime.now().plusMinutes(80), Duration.ofMinutes(10), 4));
 
         assertEquals("Описание задачи2", taskManager.getTaskById(2).getDescription());
 
