@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class InMemoryTaskManagerTest {
+public class InMemoryTaskManagerTest extends TaskManagerTest {
     @Test
     public void AnyTasksShouldBeAddedToListsAndGotBack() {
         InMemoryTaskManager taskManager = new InMemoryTaskManager();

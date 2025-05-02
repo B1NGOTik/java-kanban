@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class InMemoryHistoryManagerTest {
+public class InMemoryHistoryManagerTest extends TaskManagerTest {
     InMemoryTaskManager taskManager = new InMemoryTaskManager();
 
     @Test
