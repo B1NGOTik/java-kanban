@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class InMemoryTaskManagerTest extends TaskManagerTest {
     @Test
-    public void AnyTasksShouldBeAddedToListsAndGotBack() {
+    public void addedTasksCanBeRetrieved() {
         InMemoryTaskManager taskManager = new InMemoryTaskManager();
         taskManager.addTask(new Task("Задача1", "Описание задачи1", Status.NEW, LocalDateTime.now().plusMinutes(10), Duration.ZERO));
         taskManager.addTask(new Task("Задача2", "Описание задачи2", Status.NEW, LocalDateTime.now(), Duration.ofSeconds(13)));
