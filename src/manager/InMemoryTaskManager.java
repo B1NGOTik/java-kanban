@@ -14,6 +14,7 @@ public class InMemoryTaskManager implements TaskManager {
     protected TreeSet<Task> prioritizedTasks;
     protected Integer idMaker = 1;
     private final HistoryManager historyManager = Managers.getDefaultHistory();
+    private static final String OVERLAPPING_MESSAGE = "Задача пересекается во времени с другой";
 
     @Override
     public void addTask(Task task) {
@@ -22,7 +23,7 @@ public class InMemoryTaskManager implements TaskManager {
             task.setId(id);
             tasks.put(id, task);
         } else {
-            System.out.println("Задача пересекается во времени с другой");
+            System.out.println(OVERLAPPING_MESSAGE);
         }
     }
 
@@ -42,7 +43,7 @@ public class InMemoryTaskManager implements TaskManager {
             epics.get(subtask.getParentEpicId()).addSubtaskInEpic(subtask);
             updateEpic(subtask.getParentEpicId());
         } else {
-            System.out.println("Задача пересекается во времени с другой");
+            System.out.println(OVERLAPPING_MESSAGE);
         }
     }
 
@@ -130,7 +131,7 @@ public class InMemoryTaskManager implements TaskManager {
                 tasks.put(newTask.getId(), newTask);
             }
         } else {
-            System.out.println("Задача пересекается во времени с другой");
+            System.out.println(OVERLAPPING_MESSAGE);
         }
     }
 
@@ -152,7 +153,7 @@ public class InMemoryTaskManager implements TaskManager {
                 }
             }
         } else {
-            System.out.println("Задача пересекается во времени с другой");
+            System.out.println(OVERLAPPING_MESSAGE);
         }
     }
 

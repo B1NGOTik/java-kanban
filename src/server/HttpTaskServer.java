@@ -142,13 +142,13 @@ public class HttpTaskServer {
             Integer idTask = task.getId();
             if (idTask == null) {
                 taskManager.addTask(task);
-                outputStreamWrite(h, "Создали новую задачу с Id " + task.getId(), 200);
+                outputStreamWrite(h, String.format("Создали новую задачу с Id: %d", task.getId()), 200);
             } else {
                 if (taskManager.getAllTasks().contains(task)) {
                     taskManager.updateTask(task);
-                    outputStreamWrite(h, "Обновили задачу с Id " + idTask, 200);
+                    outputStreamWrite(h, String.format("Обновили задачу с Id: %d", idTask), 200);
                 } else {
-                    outputStreamWrite(h, "Задачи с Id " + idTask + " нет в базе.", 404);
+                    outputStreamWrite(h, String.format("Задачи с Id %d нет в базе.", idTask), 404);
                 }
             }
         }
@@ -163,13 +163,13 @@ public class HttpTaskServer {
             Integer idEpic = epic.getId();
             if (idEpic == null) {
                 taskManager.addEpic(epic);
-                outputStreamWrite(h, "Создали новый эпик с Id " + epic.getId(), 200);
+                outputStreamWrite(h, String.format("Создали новый эпик с Id: %d", epic.getId()), 200);
             } else {
                 if (taskManager.getAllEpics().contains(epic)) {
                     taskManager.updateEpic(epic);
-                    outputStreamWrite(h, "Обновили эпик с Id " + idEpic, 200);
+                    outputStreamWrite(h, String.format("Обновили эпик с Id: %d", idEpic), 200);
                 } else {
-                    outputStreamWrite(h, "Эпика с Id " + idEpic + " нет в базе.", 404);
+                    outputStreamWrite(h, String.format("Эпика с Id %d нет в базе.", idEpic), 404);
                 }
             }
         }
@@ -185,16 +185,16 @@ public class HttpTaskServer {
             if (idSubtask == null) {
                 if (taskManager.getAllEpics().contains(taskManager.getEpicById(subtask.getParentEpicId()))) {
                     taskManager.addSubtask(subtask);
-                    outputStreamWrite(h, "Создали новую подзадачу с Id " + subtask.getId(), 200);
+                    outputStreamWrite(h, String.format("Создали новую подзадачу с Id: %d", subtask.getId()), 200);
                 } else {
-                    outputStreamWrite(h, "Эпика с Id " + subtask.getParentEpicId() + " нет в базе.", 404);
+                    outputStreamWrite(h, String.format("Эпика с Id %d нет в базе.", subtask.getParentEpicId()), 404);
                 }
             } else {
                 if (taskManager.getAllSubtasks().contains(subtask)) {
                     taskManager.updateSubtask(subtask);
-                    outputStreamWrite(h, "Обновили подзадачу с Id " + idSubtask, 200);
+                    outputStreamWrite(h, String.format("Обновили подзадачу с Id: %d", idSubtask), 200);
                 } else {
-                    outputStreamWrite(h, "Подзадачи с Id " + idSubtask + " нет в базе.", 404);
+                    outputStreamWrite(h, String.format("Подзадачи с Id %d нет в базе.", idSubtask), 404);
                 }
             }
         }
@@ -206,7 +206,7 @@ public class HttpTaskServer {
                     Task task = taskManager.getTaskById(idTask);
                     outputStreamWrite(h, gson.toJson(task), 200);
                 } else {
-                    outputStreamWrite(h, "Задача с Id " + idTask + " не найдена в базе.", 404);
+                    outputStreamWrite(h, String.format("Задача с Id %d не найдена в базе.", idTask), 404);
                 }
             } else {
                 if (!taskManager.getAllTasks().isEmpty()) {
@@ -224,7 +224,7 @@ public class HttpTaskServer {
                     Epic epic = taskManager.getEpicById(idEpic);
                     outputStreamWrite(h, gson.toJson(epic), 200);
                 } else {
-                    outputStreamWrite(h, "Эпик с Id " + idEpic + " не найден в базе.", 404);
+                    outputStreamWrite(h, String.format("Эпик с Id %d не найден в базе.", idEpic), 404);
                 }
             } else {
                 if (!taskManager.getAllEpics().isEmpty()) {
@@ -243,7 +243,7 @@ public class HttpTaskServer {
                     Subtask subTask = taskManager.getSubtaskById(idSubTask);
                     outputStreamWrite(h, gson.toJson(subTask), 200);
                 } else {
-                    outputStreamWrite(h, "Подзадача с Id " + idSubTask + " не найдена в базе.", 404);
+                    outputStreamWrite(h, String.format("Подзадача с Id %d не найдена в базе.", idSubTask), 404);
                 }
             } else {
                 if (!taskManager.getAllSubtasks().isEmpty()) {
@@ -270,7 +270,7 @@ public class HttpTaskServer {
                     taskManager.removeSubtaskById(subTask.getId());
                     outputStreamWrite(h, "Удалили " + gson.toJson(subTask), 200);
                 } else {
-                    outputStreamWrite(h, "Подзадача с Id " + idSubtask + " не найдена в базе.", 404);
+                    outputStreamWrite(h, String.format("Подзадача с Id %d не найдена в базе.", idSubtask), 404);
                 }
             } else {
                 handleDeleteTasksEpicsSubTasksMap(h);
@@ -285,7 +285,7 @@ public class HttpTaskServer {
                     taskManager.removeEpicById(epic.getId());
                     outputStreamWrite(h, "Удалили " + gson.toJson(epic), 200);
                 } else {
-                    outputStreamWrite(h, "Эпик с Id " + idEpic + " не найден в базе.", 404);
+                    outputStreamWrite(h, String.format("Эпик с Id %d не найден в базе.", idEpic), 404);
                 }
             } else {
                 handleDeleteTasksEpicsSubTasksMap(h);
@@ -300,7 +300,7 @@ public class HttpTaskServer {
                     taskManager.removeTaskById(task.getId());
                     outputStreamWrite(h, "Удалили " + gson.toJson(task), 200);
                 } else {
-                    outputStreamWrite(h, "Задача с Id " + idTask + " не найдена в базе.", 404);
+                    outputStreamWrite(h, String.format("Задача с Id %d не найдена в базе.", idTask), 404);
                 }
             } else {
                 handleDeleteTasksEpicsSubTasksMap(h);
