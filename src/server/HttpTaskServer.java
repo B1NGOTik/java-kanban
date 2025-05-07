@@ -38,8 +38,8 @@ public class HttpTaskServer {
     private static final String SUBTASK = "subtask";
     private static final String HISTORY = "history";
 
-    private final int PORT = 8080;
-    private final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
+    private static final int PORT = 8080;
+    private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
     private static Gson gson = new GsonBuilder()
             .setPrettyPrinting()
             .serializeNulls()
@@ -322,7 +322,7 @@ public class HttpTaskServer {
     }
 
     private static class LocalDateTimeAdapter extends TypeAdapter<LocalDateTime> {
-        private final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy(HH:mm)");
+        private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy(HH:mm)");
 
         @Override
         public void write(final JsonWriter jsonWriter, final LocalDateTime localDateTime) throws IOException {
