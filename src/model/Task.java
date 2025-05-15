@@ -1,12 +1,17 @@
 package model;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Task {
-    private String name;
-    private String description;
-    private Status status;
-    private Integer id;
+    protected String name;
+    protected String description;
+    protected Status status;
+    protected Integer id;
+    protected LocalDateTime startTime;
+    protected Duration duration;
+
 
     public Task(String name, String description, Status status) {
         this.name = name;
@@ -19,6 +24,23 @@ public class Task {
         this.description = description;
         this.status = status;
         this.id = id;
+    }
+
+    public Task(String name, String description, Status status, LocalDateTime startTime, Duration duration) {
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.startTime = startTime;
+        this.duration = duration;
+    }
+
+    public Task(String name, String description, Status status, Integer id, LocalDateTime startTime, Duration duration) {
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.id = id;
+        this.startTime = startTime;
+        this.duration = duration;
     }
 
     public String getName() {
@@ -53,6 +75,30 @@ public class Task {
         this.status = status;
     }
 
+    public TaskType getType() {
+        return TaskType.TASK;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public LocalDateTime getEndTime() {
+        return startTime.plus(duration);
+    }
+
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
@@ -66,11 +112,12 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Model.Task{" +
+        return "Task{" +
                 "name='" + name + '\'' +
-                ", description='" + description + '\'' +
                 ", status=" + status +
                 ", id=" + id +
+                ", start=" + startTime +
+                ", end=" + getEndTime() +
                 '}';
     }
 
